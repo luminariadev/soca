@@ -7,10 +7,13 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![Vercel Ready](https://img.shields.io/badge/Vercel-Deployed-000000?logo=vercel&logoColor=white)](https://vercel.com/)
+[![Vercel Ready](https://img.shields.io/badge/Vercel-Deployed-000000?logo=vercel&logoColor=white)](https://soca-ai.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-soca--ai.vercel.app-blue)](https://soca-ai.vercel.app)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 
 **SOCA (Smart Ocular Condition Analyzer)** adalah platform skrining klinis cerdas non-invasif untuk deteksi dini anomali pada **mata bagian luar (anterior eye: kornea, pupil, sklera, dan palpebra)** secara *real-time* via kamera laptop maupun ponsel pintar tanpa radiasi retina.
+
+🔗 **Production Web App:** [https://soca-ai.vercel.app](https://soca-ai.vercel.app)
 
 Platform ini memadukan arsitektur visi komputer terkalibrasi **MobileNetV2** (akurasi validasi **97.99%** dan F1-Score **0.98** pada 3.988 citra klinis) dengan antarmuka klinis modern berbasis **Vue 3, TypeScript, Tailwind CSS, dan Leaflet OpenStreetMap**.
 
