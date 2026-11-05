@@ -351,37 +351,52 @@ const executeDiagnosisWithImage = async (imageBase64: string) => {
   let finalProbabilities: ClassProbability[] = [];
   let serverResponded = false;
 
-  // Try real PyTorch CUDA Backend (with 6s timeout for mobile network latency)
+  // Try real PyTorch CUDA Backend (if configured or running locally)
   try {
-    const host = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 6000);
+    const configuredApi = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
+    let endpoint = '';
+    
+    if (configuredApi) {
+      endpoint = `${configuredApi.replace(/\/$/, '')}/predict`;
+    } else if (typeof window !== 'undefined') {
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if (isLocalhost) {
+        endpoint = 'http://localhost:5000/predict';
+      } else if (window.location.protocol === 'http:') {
+        endpoint = `http://${window.location.hostname}:5000/predict`;
+      }
+    }
 
-    const res = await fetch(`http://${host}:5000/predict`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ image: imageBase64 }),
-      signal: controller.signal
-    });
-    clearTimeout(timeoutId);
+    if (endpoint) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
 
-    if (res.ok) {
-      const data = await res.json();
-      if (data.predictions && data.predictions.length > 0) {
-        serverResponded = true;
-        const top = data.predictions[0];
-        predictedClass = top.class;
-        predictedConfidence = parseFloat((top.confidence * 100).toFixed(1));
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: imageBase64 }),
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
 
-        finalProbabilities = data.predictions.map((p: any) => {
-          const cName = p.class;
-          const cInfo = EYE_CONDITIONS[cName] || { icd10: 'Z01.00', name: cName };
-          return {
-            name: cName,
-            probability: parseFloat((p.confidence * 100).toFixed(1)),
-            icd10: cInfo.icd10
-          };
-        }).sort((a: ClassProbability, b: ClassProbability) => b.probability - a.probability);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.predictions && data.predictions.length > 0) {
+          serverResponded = true;
+          const top = data.predictions[0];
+          predictedClass = top.class;
+          predictedConfidence = parseFloat((top.confidence * 100).toFixed(1));
+
+          finalProbabilities = data.predictions.map((p: any) => {
+            const cName = p.class;
+            const cInfo = EYE_CONDITIONS[cName] || { icd10: 'Z01.00', name: cName };
+            return {
+              name: cName,
+              probability: parseFloat((p.confidence * 100).toFixed(1)),
+              icd10: cInfo.icd10
+            };
+          }).sort((a: ClassProbability, b: ClassProbability) => b.probability - a.probability);
+        }
       }
     }
   } catch (e) {
