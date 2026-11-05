@@ -7,15 +7,32 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![Vercel Ready](https://img.shields.io/badge/Vercel-Deployed-000000?logo=vercel&logoColor=white)](https://soca-ai.vercel.app)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-soca--ai.vercel.app-blue)](https://soca-ai.vercel.app)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 
 **SOCA (Smart Ocular Condition Analyzer)** adalah platform skrining klinis cerdas non-invasif untuk deteksi dini anomali pada **mata bagian luar (anterior eye: kornea, pupil, sklera, dan palpebra)** secara *real-time* via kamera laptop maupun ponsel pintar tanpa radiasi retina.
 
-🔗 **Production Web App:** [https://soca-ai.vercel.app](https://soca-ai.vercel.app)
-
 Platform ini memadukan arsitektur visi komputer terkalibrasi **MobileNetV2** (akurasi validasi **97.99%** dan F1-Score **0.98** pada 3.988 citra klinis) dengan antarmuka klinis modern berbasis **Vue 3, TypeScript, Tailwind CSS, dan Leaflet OpenStreetMap**.
+
+---
+
+## 📸 Tampilan Antarmuka (Application Showcase)
+
+### 1. Dashboard Utama & Atlas Referensi Klinis
+![Dashboard Utama](docs/screenshots/01_beranda_dashboard.png)
+
+### 2. Workstation Pemindaian AI & Biometric Viewport
+![Workstation Pemindaian](docs/screenshots/02_pemindaian_kamera.png)
+
+### 3. Ensiklopedia Klinis Mata Luar & Panduan Perawatan ICD-10
+![Ensiklopedia Klinis](docs/screenshots/03_ensiklopedia_atlas.png)
+
+### 4. Dashboard Evaluasi Klinis & Lembar Rujukan Medis
+![Dashboard Evaluasi Klinis](docs/screenshots/04_hasil_klinis.png)
+
+### 5. Tampilan Responsif Mobile (iOS Floating Glass Navigation)
+<div align="center">
+  <img src="docs/screenshots/05_mobile_view.png" width="380" alt="Mobile View" />
+</div>
 
 ---
 
@@ -43,13 +60,13 @@ graph TD
         UI["Antarmuka Obsidian Slate Clinical Workstation"]
         CamCapture["Kamera Langsung WebRTC / Native Shutter"]
         Resizer["Client-Side Canvas Downscaler (Max 800px)"]
-        LocalAnalyzer["Heuristik Analisis Piksel (Fallback Vercel)"]
+        LocalAnalyzer["Heuristik Analisis Piksel (Fallback On-Device)"]
         LeafletMap["Peta Faskes Terdekat (Leaflet + OSM)"]
         PrintTemplate["Lembar Rujukan Medis (@media print)"]
     end
 
-    subgraph Edge ["Deployment Layer (Vercel)"]
-        VercelCDN["Vercel Edge Network (Global CDN)"]
+    subgraph Deploy ["Deployment & Distribution"]
+        WebServer["Production Nginx / Local Server"]
     end
 
     subgraph Inference ["AI Inference Layer (Python PyTorch / CUDA)"]
@@ -69,7 +86,7 @@ graph TD
     LocalAnalyzer --> UI
     UI --> LeafletMap
     UI --> PrintTemplate
-    Client --> VercelCDN
+    Client --> WebServer
 ```
 
 ---
@@ -78,7 +95,7 @@ graph TD
 
 1. **Dual-Engine Inference (PyTorch GPU + Fallback Client-Side)**:
    - Didukung backend PyTorch GPU berlatensi rendah (< 20 ms).
-   - Dilengkapi *client-side pixel analyzer* independen sehingga aplikasi dapat berjalan 100% *standalone* saat dideploy di serverless Vercel tanpa backend Python.
+   - Dilengkapi *client-side pixel analyzer* independen sehingga aplikasi dapat berjalan 100% *standalone* di lingkungan browser offline tanpa backend Python aktif.
 2. **Kompresi Citra Otomatis (*Anti-Crash LMK*)**:
    - Foto resolusi tinggi (12 MP – 50 MP) dari ponsel otomatis diperkecil ke 800px (~80 KB) di memori kanvas sebelum inferensi, mencegah *browser tab reload* akibat *Low-Memory Killer* di HP.
 3. **Peta Faskes & Dokter Spesialis Mata Nyata**:
@@ -152,21 +169,6 @@ docker compose up --build
 ```
 - **Aplikasi Web:** `http://localhost`
 - **Backend API:** `http://localhost:5000`
-
----
-
-## 🌐 Panduan Deployment Vercel
-
-Frontend SOCA telah dikonfigurasi untuk deployment instan *zero-config* di Vercel:
-
-1. Buka [Vercel Dashboard](https://vercel.com/) dan masuk menggunakan akun GitHub Anda (`rizkianuari83@gmail.com`).
-2. Klik **Add New Project** $\rightarrow$ Impor repositori **`luminariadev/soca`**.
-3. Di pengaturan proyek:
-   - **Framework Preset:** Vite
-   - **Root Directory:** `frontend` *(atau biarkan root jika menggunakan vercel.json bawaan)*
-   - **Build Command:** `npm run build`
-   - **Output Directory:** `dist`
-4. Klik **Deploy**. Web akan live dalam hitungan detik!
 
 ---
 

@@ -75,7 +75,7 @@ const emit = defineEmits<{
             MediaPipe Face Mesh
           </span>
           <span class="px-2.5 py-1 rounded-lg bg-surface-container-high text-xs font-mono text-on-surface border border-outline-variant/30">
-            Vercel Ready
+            Cross-Platform SPA
           </span>
         </div>
       </div>
