@@ -93,6 +93,14 @@ const handleSelectHistoryResult = (item: ScanResult) => {
   selectTab('hasil');
 };
 
+const handleNewScan = () => {
+  latestResult.value = null;
+  try {
+    localStorage.removeItem('soca_latest_result');
+  } catch (e) {}
+  selectTab('pindai');
+};
+
 // Check tablet & mobile screens to avoid cramped desktop view
 const checkScreenSize = () => {
   if (window.innerWidth < 1180) {
@@ -149,7 +157,7 @@ onMounted(() => {
               :result="latestResult"
               @navigate="selectTab"
               @scanComplete="handleScanComplete"
-              @newScan="selectTab('pindai')"
+              @newScan="handleNewScan"
             />
           </transition>
         </div>

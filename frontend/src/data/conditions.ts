@@ -111,7 +111,7 @@ export const EYE_CONDITIONS: Record<string, DiagnosticCondition> = {
       {
         title: 'Gunakan Kacamata Anti-UV & Polarized',
         desc: 'Pakai kacamata hitam berlabel UV400 di luar ruangan untuk memperlambat laju oksidasi protein lensa.',
-        icon: 'eyeglasses'
+        icon: 'wb_sunny'
       },
       {
         title: 'Konsultasi Bedah Fakoemulsifikasi',
@@ -153,7 +153,7 @@ export const EYE_CONDITIONS: Record<string, DiagnosticCondition> = {
       {
         title: 'Tinggikan Posisi Kepala Saat Tidur',
         desc: 'Gunakan bantal lebih tinggi untuk mengurangi kongesti vaskular dan pembengkakan jaringan orbita di pagi hari.',
-        icon: 'single_bed'
+        icon: 'bed'
       },
       {
         title: 'Pemeriksaan Panel Hormon Tiroid',
@@ -195,7 +195,7 @@ export const EYE_CONDITIONS: Record<string, DiagnosticCondition> = {
       {
         title: 'Evaluasi Kacamata Prisma',
         desc: 'Pemeriksaan refraksi lengkap untuk koreksi indeks bias yang mungkin menjadi pemicu akomodatif strabismus.',
-        icon: 'eyeglasses'
+        icon: 'visibility'
       },
       {
         title: 'Istirahatkan Mata Berkala',
@@ -235,7 +235,7 @@ export const EYE_CONDITIONS: Record<string, DiagnosticCondition> = {
       {
         title: 'Hidrasi Cairan Cukup (2 Liter/Hari)',
         desc: 'Minum air putih memadai dan kurangi asupan garam/sodium tinggi sebelum tidur untuk mencegah retensi cairan.',
-        icon: 'water'
+        icon: 'water_drop'
       },
       {
         title: 'Krim Mata Mengandung Kafein & Peptida',

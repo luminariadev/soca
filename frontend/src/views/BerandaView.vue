@@ -237,10 +237,10 @@ const activeSample = ref(conditionsList[1]); // Default to konjungtivitis
             </div>
           </div>
           <div class="flex flex-col">
-            <span class="font-bold text-xs sm:text-sm text-on-surface group-hover:text-primary transition-colors truncate">
+            <span class="font-bold text-xs sm:text-sm text-on-surface group-hover:text-primary transition-colors line-clamp-2 leading-snug min-h-[2.25rem]">
               {{ cond.name }}
             </span>
-            <span class="text-[11px] text-on-surface-variant truncate font-mono">
+            <span class="text-[11px] text-on-surface-variant truncate font-mono mt-0.5">
               {{ cond.category }}
             </span>
           </div>
@@ -254,7 +254,7 @@ const activeSample = ref(conditionsList[1]); // Default to konjungtivitis
       class="fixed inset-0 z-[80] bg-black/85 backdrop-blur-xl flex flex-col justify-end sm:justify-center sm:items-center p-0 sm:p-6 transition-all"
       @click.self="showSampleModal = false"
     >
-      <div class="relative w-full max-w-xl rounded-t-[32px] sm:rounded-3xl bg-surface-container-high border-t sm:border border-outline-variant/40 shadow-[0_-16px_48px_rgba(0,0,0,0.85)] sm:shadow-2xl p-5 sm:p-6 flex flex-col gap-4 max-h-[88vh] overflow-y-auto sm:my-auto">
+      <div class="relative w-full max-w-xl rounded-t-[32px] sm:rounded-3xl bg-surface-container-high border-t sm:border border-outline-variant/40 shadow-[0_-16px_48px_rgba(0,0,0,0.85)] sm:shadow-2xl p-5 sm:p-6 pb-10 sm:pb-6 flex flex-col gap-4 max-h-[88vh] overflow-y-auto sm:my-auto">
         <!-- Mobile Pull Bar -->
         <div class="w-12 h-1.5 rounded-full bg-white/25 mx-auto mb-1 sm:hidden shrink-0"></div>
 
